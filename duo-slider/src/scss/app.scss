@@ -1,0 +1,280 @@
+body {
+  margin: 0 0;
+  * {
+    box-sizing: border-box;
+  }
+}
+
+$height: 70vh;
+$width: 70vw;
+$wq: 1.2; //http://www.carbidedepot.com/formulas-trigright.asp
+$hq: 3 - $wq;
+
+$transTime: 500ms;
+
+div.uilab_duo-slider {
+  height: $height;
+  width: $width;
+  border: 2px solid #000;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  &:before {
+    display: block;
+    content: '';
+    background-color: fuchsia;
+    border-radius: 100px;
+    width: 3px;
+    height: 3px;
+    position: absolute;
+    top: calc(50% - 1.5px);
+    left: calc(50% - 1.5px);
+    z-index: 1000;
+  }
+  > div.rotator {
+    flex-basis: 100%;
+    transform: rotate(20deg);
+    transform-origin: center center;
+    position: relative;
+    display: flex;
+    > div.first-wrapper {
+      position: absolute;
+      height: $height * $hq;
+      width: $width * $wq;
+      top: -0.5 * $height * ($hq - 1);
+      left: -0.5 * $width * ($wq - 1);
+      display: flex;
+      > hr {
+        display: block;
+        margin: 0 0;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: calc(50% - 1.5px);
+        height: 100%;
+        width: 3px;
+        border: none;
+        background-color: #000;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+      > div.track {
+        flex-basis: 50%;
+        position: relative;
+        > div.slide {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          right: 0px;
+          bottom: 0px;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          display: flex;
+          justify-content: stretch;
+          align-items: stretch;
+          transition: top $transTime ease;
+          > div.content {
+            position: relative;
+            flex-basis: 100%;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+            transform: rotate(-20deg);
+            padding: 5% 5%;
+            font-family: Helvetica, sans-serif;
+          }
+          > div.bg {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transform: rotate(-20deg);
+            z-index: 99;
+          }
+          &.next {
+            z-index: 100;
+          }
+          &.current {
+            z-index: 101;
+          }
+        }
+        &.track1 {
+          > div.slide {
+            > div.content {
+              transform-origin: right center;
+              justify-content: flex-end;
+              color: #fff;
+            }
+            &.current {
+              top: 0px;
+              &.toPrev {
+                top: $height * $hq;
+              }
+            }
+            &.next {
+              top: -1 * $height * $hq;
+              &.toCurrent {
+                top: 0px;
+              }
+            }
+          }
+        }
+        &.track2 {
+          > div.slide {
+            > div.content {
+              transform-origin: left center;
+              justify-content: flex-start;
+              color: #000;
+            }
+            &.current {
+              top: 0px;
+              &.toPrev {
+                top: -1 * $height * $hq;
+              }
+            }
+            &.next {
+              top: $height * $hq;
+              &.toCurrent {
+                top: 0px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// div.uilab_duo-slider {
+//   height: $height;
+//   width: 70vw;
+//   height: 50vh;
+//   overflow: hidden;
+//   border: 2px solid #000;
+//   margin: 20px auto;
+//   position: relative;
+//   > div.wrapper {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     > hr {
+//       display: block;
+//       margin: 0 0;
+//       position: absolute;
+//       top: 0px;
+//       bottom: 0px;
+//       left: 50%;
+//       height: $slideHeight;
+//       width: 3px;
+//       border: none;
+//       background-color: #000;
+//       transform: translateX(-50%);
+//       z-index: 3;
+//       transform: rotate(30deg);
+//       transform-origin: 50% 50%;
+//     }
+//     > div.track {
+//       flex-basis: 50%;
+//       display: flex;
+//       flex-wrap: wrap;
+//       transform: rotate(30deg);
+//       height: $height;
+//       > div.slide {
+//         position: relative;
+//         flex-basis: 100%;
+//         height: $slideHeight;
+//         > div.bg,
+//         > div.content {
+//           position: absolute;
+//           top: 0px;
+//           bottom: 0px;
+//           left: 0px;
+//           right: 0px;
+//           width: 100%;
+//           height: 100%;
+//         }
+//         > div.bg {
+//           z-index: 1;
+//           background-size: cover;
+//           background-repeat: no-repeat;
+//         }
+//         > div.content {
+//           z-index: 2;
+//           display: flex;
+//           align-items: center;
+//           font-family: Helvetica, sans-serif;
+//           font-size: 20px;
+//           padding: 20px 20px;
+//           > h2 {
+//             display: inline;
+//           }
+//         }
+//       }
+//       &.track1 {
+//         transform-origin: right center;
+//         > div.slide {
+//           > div.content {
+//             justify-content: flex-end;
+//             color: #fff;
+//             text-shadow: 0 0 3px #000;
+//           }
+//         }
+//       }
+//       &.track2 {
+//         transform-origin: left center;
+//         > div.slide {
+//           > div.content {
+//             justify-content: flex-start;
+//             color: #000;
+//             text-shadow: 0 0 3px #fff;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// div.slider {
+//   display: flex;
+//   transform: rotate(30deg);
+//   transform-origin: left top;
+//   > div.slide {
+//     padding: 10px 10px;
+//     > span {
+//       display: block;
+//       transform: rotate(-30deg);
+//       transition: transform 300ms ease;
+//     }
+//     &.slide1 {
+//       border-right: 1px solid #000;
+//       > span {
+//         transform-origin: right center;
+//       }
+//     }
+//     &.slide2 {
+//       border-left: 1px solid #000;
+//       > span {
+//         transform-origin: left center;
+//       }
+//     }
+//   }
+//   &:hover {
+//     > div.slide.slide1 {
+//       > span {
+//         transform: translateY(-50px) rotate(-30deg);
+//       }
+//     }
+//     > div.slide.slide2 {
+//       > span {
+//         transform: translateY(50px) rotate(-30deg);
+//       }
+//     }
+//   }
+// }
